@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using CardGameAPI.Models;
+using CardGameAPI.Stores;
 
 namespace CardGameAPI.Controllers;
 
@@ -8,15 +9,17 @@ namespace CardGameAPI.Controllers;
 public class CardController : ControllerBase
 {
     private readonly ILogger<CardController> _logger;
+    private readonly ICardStore _store;
 
-    public CardController(ILogger<CardController> logger)
+    public CardController(ILogger<CardController> logger, ICardStore store)
     {
         _logger = logger;
+        _store = store;
     }
 
     [HttpGet]
     public Card GetRandom()
     {
-        return new Card();
+        return _store.GetRandom();
     }
 }
